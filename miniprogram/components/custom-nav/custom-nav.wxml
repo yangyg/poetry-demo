@@ -1,0 +1,27 @@
+<!-- 自定义导航栏：复刻 Web 端 site-header（印章品牌 + 简繁切换） -->
+<view class="nav-wrap" style="padding-top: {{statusBarHeight}}px;">
+  <view class="nav-bar" style="height: {{navHeight}}px;">
+    <!-- 品牌区 -->
+    <view class="brand">
+      <view class="seal">诗</view>
+      <view class="brand-text">
+        <text class="brand-name">诗泉</text>
+        <text class="brand-sub">随机 · 搜索</text>
+      </view>
+    </view>
+    <!-- 简繁切换（对应 Web 端 select） -->
+    <picker
+      mode="selector"
+      range="{{langOptions}}"
+      value="{{langIndex}}"
+      bindchange="onLangChange"
+    >
+      <view class="lang-switch">
+        {{langOptions[langIndex]}}
+        <text class="lang-arrow">▾</text>
+      </view>
+    </picker>
+  </view>
+</view>
+<!-- 占位，防止内容被固定导航遮挡 -->
+<view style="height: {{statusBarHeight + navHeight}}px;"></view>

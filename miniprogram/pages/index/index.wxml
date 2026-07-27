@@ -1,0 +1,83 @@
+<!-- 首页：阅读区 + 搜索区（对应 Web 端 main 区域） -->
+<custom-nav lang="{{lang}}" bind:langchange="onLangChange" />
+
+<view class="page-body">
+  <!-- ═══ 阅读区 ═══ -->
+  <view class="reader anim-rise">
+    <view class="reader-inner">
+      <!-- 加载 / 错误状态 -->
+      <view wx:if="{{readerLoading || readerError}}" class="status">
+        {{readerError || '正在取诗…'}}
+      </view>
+
+      <!-- 诗歌展示 -->
+      <block wx:else>
+        <view key="{{animKey}}" class="poem-anim">
+          <view class="poem-title">{{poem.title || '无题'}}</view>
+          <view class="poem-meta">{{poemMeta}}</view>
+          <view class="poem-body">
+            <text class="poem-line" wx:for="{{poem.content}}" wx:key="index">{{item}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 换一首 -->
+    <view class="reader-actions">
+      <button
+        class="btn-ink {{randomLoading ? 'btn-ink-disabled' : ''}}"
+        hover-class="btn-ink-hover"
+        disabled="{{randomLoading}}"
+        bindtap="onRandom"
+      >换一首</button>
+    </view>
+  </view>
+
+  <!-- ═══ 搜索区 ═══ -->
+  <view class="search anim-rise anim-delay-2">
+    <view class="search-heading">寻诗</view>
+
+    <view class="search-form">
+      <input
+        class="search-input"
+        type="text"
+        confirm-type="search"
+        placeholder="输入诗句、标题或作者…"
+        placeholder-class="search-placeholder"
+        value="{{query}}"
+        bindinput="onInput"
+        bindconfirm="onSearch"
+      />
+      <button
+        class="btn-ink search-btn {{searchLoading ? 'btn-ink-disabled' : ''}}"
+        hover-class="btn-ink-hover"
+        disabled="{{searchLoading}}"
+        bindtap="onSearch"
+      >搜索</button>
+    </view>
+
+    <!-- 搜索状态提示 -->
+    <view class="search-hint" wx:if="{{searchStatus}}">{{searchStatus}}</view>
+
+    <!-- 搜索结果列表 -->
+    <view class="search-results">
+      <view
+        class="result-item"
+        hover-class="result-item-hover"
+        wx:for="{{results}}"
+        wx:key="id"
+        data-index="{{index}}"
+        bindtap="onResultTap"
+      >
+        <text class="result-title">{{item.title || '无题'}}</text>
+        <text class="result-meta">{{item.metaText}}</text>
+        <text class="result-excerpt">{{item.excerpt}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ═══ 页脚 ═══ -->
+  <view class="site-footer">
+    <text>数据来自诗泉 API（poetry.palemoky.com），源自开源项目 chinese-poetry。</text>
+  </view>
+</view>

@@ -1,0 +1,80 @@
+/* 自定义导航栏 — 对应 Web 端 .site-header */
+.nav-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background:
+    radial-gradient(1200rpx 600rpx at 10% -10%, #f2ead6 0%, rgba(242, 234, 214, 0) 55%),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper) 100%);
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40rpx;
+}
+
+/* ── 品牌区 ── */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 27rpx;
+}
+
+/* 印章 — 对应 Web 端 .seal */
+.seal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 83rpx;
+  height: 83rpx;
+  border: 4rpx solid var(--seal);
+  color: var(--seal);
+  font-family: var(--font-display);
+  font-size: 46rpx;
+  line-height: 1;
+  transform: rotate(-6deg);
+  box-shadow: inset 0 0 0 2rpx var(--seal-35);
+  background: var(--seal-bg);
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2rpx;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 56rpx;
+  font-weight: 400;
+  letter-spacing: 7rpx;
+  line-height: 1.2;
+}
+
+.brand-sub {
+  font-size: 25rpx;
+  color: var(--ink-faint);
+  letter-spacing: 9rpx;
+}
+
+/* ── 简繁切换 — 对应 Web 端 .lang-switch select ── */
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  border: 2rpx solid var(--line);
+  background: #f6f0de;
+  color: var(--ink-soft);
+  padding: 13rpx 24rpx;
+  font-size: 29rpx;
+  border-radius: var(--radius);
+}
+
+.lang-arrow {
+  font-size: 22rpx;
+  color: var(--ink-faint);
+}

@@ -1,0 +1,104 @@
+/**
+ * 全局样式 — 宣纸墨韵主题
+ * 色值由 Web 端 color-mix() 预计算为 rgba，保证视觉一致
+ */
+page {
+  /* ── 主题变量 ── */
+  --paper: #e8dfc8;
+  --paper-deep: #d9cdb0;
+  --ink: #1a1612;
+  --ink-soft: #4a4338;
+  --ink-faint: #7a7164;
+  --seal: #9b1b1b;
+  --seal-ink: #f3e6d0;
+  /* color-mix(in srgb, ink 14%, transparent) */
+  --line: rgba(26, 22, 18, 0.14);
+  /* color-mix(in srgb, ink 10%, transparent) */
+  --shadow: rgba(26, 22, 18, 0.10);
+  /* color-mix(in srgb, seal 8%, transparent) */
+  --seal-bg: rgba(155, 27, 27, 0.08);
+  /* color-mix(in srgb, seal 35%, transparent) */
+  --seal-35: rgba(155, 27, 27, 0.35);
+  /* color-mix(in srgb, seal 45%, transparent) */
+  --seal-45: rgba(155, 27, 27, 0.45);
+  /* color-mix(in srgb, #f7f0dc 82%, white) — 阅读卡片底色 */
+  --card: #f9f3e3;
+  /* color-mix(in srgb, #f7f0dc 70%, white) — 输入框底色 */
+  --input-bg: #faf5e7;
+  /* color-mix(in srgb, #f7f0dc 55%, white) — 结果条目底色 */
+  --item-bg: #fcf8ee;
+
+  /* 字体：小程序无法直接加载 Google Fonts，使用系统宋体/楷体回退 */
+  --font-display: "Kaiti SC", "STKaiti", "KaiTi", "Noto Serif SC", "Songti SC", serif;
+  --font-body: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+
+  --radius: 4rpx;
+
+  /* ── 基础 ── */
+  font-family: var(--font-body);
+  color: var(--ink);
+  line-height: 1.7;
+  background:
+    radial-gradient(1200rpx 600rpx at 10% -10%, #f2ead6 0%, rgba(242, 234, 214, 0) 55%),
+    radial-gradient(900rpx 500rpx at 100% 0%, #dccfb0 0%, rgba(220, 207, 176, 0) 50%),
+    linear-gradient(180deg, var(--paper) 0%, var(--paper-deep) 100%);
+  min-height: 100vh;
+}
+
+/* ── 通用按钮：墨色按钮 ── */
+.btn-ink {
+  font-family: var(--font-body);
+  font-size: 30rpx;
+  border: 2rpx solid var(--ink);
+  background: var(--ink);
+  color: var(--seal-ink);
+  padding: 18rpx 45rpx;
+  letter-spacing: 7rpx;
+  border-radius: var(--radius);
+  line-height: 1.4;
+  text-align: center;
+}
+
+.btn-ink::after {
+  border: none;
+}
+
+.btn-ink-hover {
+  background: transparent;
+  color: var(--ink);
+}
+
+.btn-ink-disabled {
+  opacity: 0.55;
+}
+
+/* ── 动效 ── */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24rpx);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16rpx);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.anim-rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.anim-fade-up {
+  animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
