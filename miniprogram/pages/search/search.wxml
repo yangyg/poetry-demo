@@ -1,0 +1,52 @@
+<!-- 搜索 Tab：寻诗（关键词搜索 + 结果列表） -->
+<custom-nav lang="{{lang}}" bind:langchange="onLangChange" />
+
+<view class="page-body">
+  <!-- ═══ 搜索区 ═══ -->
+  <view class="search anim-rise">
+    <view class="search-heading">寻诗</view>
+
+    <view class="search-form">
+      <input
+        class="search-input"
+        type="text"
+        confirm-type="search"
+        placeholder="输入诗句、标题或作者…"
+        placeholder-class="search-placeholder"
+        value="{{query}}"
+        bindinput="onInput"
+        bindconfirm="onSearch"
+      />
+      <button
+        class="btn-ink search-btn {{searchLoading ? 'btn-ink-disabled' : ''}}"
+        hover-class="btn-ink-hover"
+        disabled="{{searchLoading}}"
+        bindtap="onSearch"
+      >搜索</button>
+    </view>
+
+    <!-- 搜索状态提示 -->
+    <view class="search-hint" wx:if="{{searchStatus}}">{{searchStatus}}</view>
+
+    <!-- 搜索结果列表 -->
+    <view class="search-results">
+      <view
+        class="result-item"
+        hover-class="result-item-hover"
+        wx:for="{{results}}"
+        wx:key="id"
+        data-index="{{index}}"
+        bindtap="onResultTap"
+      >
+        <text class="result-title">{{item.title || '无题'}}</text>
+        <text class="result-meta">{{item.metaText}}</text>
+        <text class="result-excerpt">{{item.excerpt}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ═══ 页脚 ═══ -->
+  <view class="site-footer">
+    <text>数据来自诗泉 API（poetry.palemoky.com），源自开源项目 chinese-poetry。</text>
+  </view>
+</view>

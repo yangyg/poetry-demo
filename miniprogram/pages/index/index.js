@@ -1,9 +1,9 @@
 /**
- * 首页逻辑 — 迁移自 Web 端 src/main.js
- * 功能：随机刷诗、关键词搜索、简繁切换
+ * 首页 Tab 逻辑 — 随机刷诗
+ * 搜索功能已拆分至 pages/search/search
  */
 const app = getApp()
-const { fetchRandom, searchPoems } = require('../../utils/api')
+const { fetchRandom } = require('../../utils/api')
 
 Page({
   data: {
@@ -15,21 +15,39 @@ Page({
     randomLoading: false,
     poem: null,
     poemMeta: '',
-    animKey: 0, // 递增 key 触发切换动画（对应 Web 端 fade-in class 重挂）
-
-    // ── 搜索区状态 ──
-    query: '',
-    searchLoading: false,
-    searchStatus: '',
-    results: []
+    animKey: 0 // 递增 key 触发切换动画（对应 Web 端 fade-in class 重挂）
   },
-
-  /** 搜索竞态序号（对应 Web 端 searchSeq） */
-  _searchSeq: 0,
 
   onLoad() {
     this.setData({ lang: app.getLang() })
     this.loadRandom()
+  },
+
+  /**
+   * Tab 页每次显示时：
+   * 1. 同步自定义 tabBar 选中态
+   * 2. 消费搜索页传递的选中诗歌
+   * 3. 语言在其他 Tab 被切换时重新加载
+   */
+  onShow() {
+    if (typeof this.getTabBar === 'function' && this.getTabBar()) {
+      this.getTabBar().setData({ selected: 0 })
+    }
+
+    const currentLang = app.getLang()
+    const langChanged = currentLang !== this.data.lang
+    if (langChanged) {
+      this.setData({ lang: currentLang })
+    }
+
+    // 搜索页选中的诗歌优先展示（已是对应语言的结果）
+    const selected = app.globalData.selectedPoem
+    if (selected) {
+      app.globalData.selectedPoem = null
+      this.renderPoem(selected)
+    } else if (langChanged) {
+      this.loadRandom()
+    }
   },
 
   /* ══════════ 阅读区 ══════════ */
@@ -78,77 +96,12 @@ Page({
     this.loadRandom()
   },
 
-  /* ══════════ 搜索区 ══════════ */
-
-  onInput(e) {
-    this.setData({ query: e.detail.value })
-  },
-
-  /** 执行搜索（对应 Web 端 runSearch） */
-  async runSearch(q) {
-    const seq = ++this._searchSeq
-    this.setData({
-      searchLoading: true,
-      searchStatus: '搜索中…',
-      results: []
-    })
-    try {
-      const { poems } = await searchPoems(q, app.getLang())
-      if (seq !== this._searchSeq) return // 竞态保护
-      if (!poems.length) {
-        this.setData({ searchLoading: false, searchStatus: '未找到相关诗词' })
-        return
-      }
-      // 预处理列表展示字段
-      const results = poems.map((poem) => ({
-        ...poem,
-        metaText: this.formatMeta(poem),
-        excerpt: Array.isArray(poem.content) ? poem.content[0] || '' : ''
-      }))
-      this.setData({
-        searchLoading: false,
-        searchStatus: `找到 ${poems.length} 首`,
-        results
-      })
-    } catch (err) {
-      if (seq !== this._searchSeq) return
-      this.setData({
-        searchLoading: false,
-        searchStatus: err.message || '搜索失败'
-      })
-    }
-  },
-
-  /** 搜索按钮 / 键盘确认 */
-  onSearch() {
-    const q = this.data.query.trim()
-    if (!q || this.data.searchLoading) return
-    this.runSearch(q)
-  },
-
-  /**
-   * 点击搜索结果 → 阅读区展示该诗并滚动到顶部
-   * （对应 Web 端 renderPoem + scrollIntoView）
-   */
-  onResultTap(e) {
-    const { index } = e.currentTarget.dataset
-    const poem = this.data.results[index]
-    if (!poem) return
-    this.renderPoem(poem)
-    wx.pageScrollTo({ scrollTop: 0, duration: 300 })
-  },
-
   /* ══════════ 简繁切换 ══════════ */
 
-  /**
-   * 语言切换后重新请求当前视图
-   * （对应 Web 端 lang change 事件：重载随机诗 + 重跑搜索）
-   */
+  /** 语言切换后重新加载随机诗 */
   onLangChange(e) {
     const { lang } = e.detail
     this.setData({ lang })
     this.loadRandom()
-    const q = this.data.query.trim()
-    if (q) this.runSearch(q)
   }
 })

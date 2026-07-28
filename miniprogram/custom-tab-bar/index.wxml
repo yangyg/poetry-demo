@@ -1,0 +1,14 @@
+<!-- 自定义 tabBar：印章式单字图标（诗 / 寻） -->
+<view class="tab-bar">
+  <view
+    wx:for="{{list}}"
+    wx:key="pagePath"
+    class="tab-item"
+    data-path="{{item.pagePath}}"
+    data-index="{{index}}"
+    bindtap="switchTab"
+  >
+    <view class="tab-icon {{selected === index ? 'tab-icon-active' : ''}}">{{item.icon}}</view>
+    <text class="tab-text {{selected === index ? 'tab-text-active' : ''}}">{{item.text}}</text>
+  </view>
+</view>

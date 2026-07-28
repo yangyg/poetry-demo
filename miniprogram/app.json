@@ -1,11 +1,22 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/search/search"
   ],
   "window": {
     "navigationStyle": "custom",
     "backgroundColor": "#e8dfc8",
     "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#7a7164",
+    "selectedColor": "#9b1b1b",
+    "backgroundColor": "#e8dfc8",
+    "list": [
+      { "pagePath": "pages/index/index", "text": "首页" },
+      { "pagePath": "pages/search/search", "text": "搜索" }
+    ]
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",

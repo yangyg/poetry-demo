@@ -1,7 +1,8 @@
-/* 首页样式 — 迁移自 Web 端 src/style.css（宣纸墨韵风格） */
+/* 首页 Tab 样式 — 阅读区（宣纸墨韵风格） */
 
 .page-body {
-  padding: 16rpx 40rpx 96rpx;
+  /* 底部预留自定义 tabBar 高度 + 安全区 */
+  padding: 16rpx 40rpx 200rpx;
 }
 
 /* ══════════ 阅读区（对应 .reader） ══════════ */
@@ -73,106 +74,6 @@
   margin-top: 56rpx;
   padding-top: 40rpx;
   border-top: 2rpx dashed var(--line);
-}
-
-/* ══════════ 搜索区（对应 .search） ══════════ */
-
-.search {
-  margin-top: 80rpx;
-}
-
-.anim-delay-2 {
-  animation-delay: 0.16s;
-}
-
-/* 标题（对应 .search h2） */
-.search-heading {
-  margin-bottom: 32rpx;
-  font-family: var(--font-display);
-  font-size: 51rpx;
-  font-weight: 400;
-  letter-spacing: 13rpx;
-}
-
-/* 搜索表单（对应 .search-form） */
-.search-form {
-  display: flex;
-  gap: 19rpx;
-}
-
-.search-input {
-  flex: 1;
-  min-width: 0;
-  border: 2rpx solid var(--line);
-  background: var(--input-bg);
-  color: var(--ink);
-  padding: 22rpx 29rpx;
-  font-size: 30rpx;
-  letter-spacing: 2rpx;
-  border-radius: var(--radius);
-}
-
-.search-placeholder {
-  color: var(--ink-faint);
-  letter-spacing: 2rpx;
-}
-
-.search-btn {
-  flex-shrink: 0;
-}
-
-/* 状态提示（对应 .search-hint） */
-.search-hint {
-  min-height: 48rpx;
-  margin: 24rpx 0 8rpx;
-  color: var(--ink-faint);
-  font-size: 29rpx;
-  letter-spacing: 3rpx;
-}
-
-/* 结果列表（对应 .search-results） */
-.search-results {
-  display: flex;
-  flex-direction: column;
-  gap: 18rpx;
-  margin-top: 16rpx;
-}
-
-.result-item {
-  border: 2rpx solid var(--line);
-  background: var(--item-bg);
-  padding: 29rpx 32rpx;
-  display: flex;
-  flex-direction: column;
-  gap: 6rpx;
-  border-radius: var(--radius);
-}
-
-/* 按压反馈（对应 Web 端 :hover） */
-.result-item-hover {
-  border-color: var(--seal-45);
-  transform: translateX(4rpx);
-}
-
-.result-title {
-  font-weight: 600;
-  letter-spacing: 3rpx;
-  font-size: 30rpx;
-}
-
-.result-meta {
-  color: var(--ink-faint);
-  font-size: 27rpx;
-  letter-spacing: 4rpx;
-}
-
-.result-excerpt {
-  color: var(--ink-soft);
-  font-size: 29rpx;
-  letter-spacing: 2rpx;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* ══════════ 页脚（对应 .site-footer） ══════════ */

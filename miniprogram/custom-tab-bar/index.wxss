@@ -1,0 +1,57 @@
+/* 自定义 tabBar — 宣纸墨韵风格 */
+.tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  background: var(--paper);
+  border-top: 2rpx solid var(--line);
+  /* iPhone 底部安全区 */
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.tab-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14rpx 0 10rpx;
+}
+
+/* 印章式图标 — 未选中：淡墨描边 */
+.tab-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52rpx;
+  height: 52rpx;
+  margin-bottom: 6rpx;
+  border: 3rpx solid var(--ink-faint);
+  color: var(--ink-faint);
+  font-family: var(--font-display);
+  font-size: 30rpx;
+  line-height: 1;
+  transform: rotate(-6deg);
+  transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* 选中态：朱红印泥 */
+.tab-icon-active {
+  border-color: var(--seal);
+  background: var(--seal);
+  color: var(--seal-ink);
+  box-shadow: inset 0 0 0 2rpx var(--seal-35);
+}
+
+.tab-text {
+  font-size: 22rpx;
+  color: var(--ink-faint);
+  letter-spacing: 4rpx;
+}
+
+.tab-text-active {
+  color: var(--seal);
+}

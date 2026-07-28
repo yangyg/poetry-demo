@@ -1,4 +1,4 @@
-<!-- 首页：阅读区 + 搜索区（对应 Web 端 main 区域） -->
+<!-- 首页 Tab：阅读区（随机诗 + 换一首） -->
 <custom-nav lang="{{lang}}" bind:langchange="onLangChange" />
 
 <view class="page-body">
@@ -30,49 +30,6 @@
         disabled="{{randomLoading}}"
         bindtap="onRandom"
       >换一首</button>
-    </view>
-  </view>
-
-  <!-- ═══ 搜索区 ═══ -->
-  <view class="search anim-rise anim-delay-2">
-    <view class="search-heading">寻诗</view>
-
-    <view class="search-form">
-      <input
-        class="search-input"
-        type="text"
-        confirm-type="search"
-        placeholder="输入诗句、标题或作者…"
-        placeholder-class="search-placeholder"
-        value="{{query}}"
-        bindinput="onInput"
-        bindconfirm="onSearch"
-      />
-      <button
-        class="btn-ink search-btn {{searchLoading ? 'btn-ink-disabled' : ''}}"
-        hover-class="btn-ink-hover"
-        disabled="{{searchLoading}}"
-        bindtap="onSearch"
-      >搜索</button>
-    </view>
-
-    <!-- 搜索状态提示 -->
-    <view class="search-hint" wx:if="{{searchStatus}}">{{searchStatus}}</view>
-
-    <!-- 搜索结果列表 -->
-    <view class="search-results">
-      <view
-        class="result-item"
-        hover-class="result-item-hover"
-        wx:for="{{results}}"
-        wx:key="id"
-        data-index="{{index}}"
-        bindtap="onResultTap"
-      >
-        <text class="result-title">{{item.title || '无题'}}</text>
-        <text class="result-meta">{{item.metaText}}</text>
-        <text class="result-excerpt">{{item.excerpt}}</text>
-      </view>
     </view>
   </view>
 

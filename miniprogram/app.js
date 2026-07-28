@@ -1,7 +1,9 @@
 App({
   globalData: {
     /** 当前语言：zh-Hans | zh-Hant */
-    lang: 'zh-Hans'
+    lang: 'zh-Hans',
+    /** 搜索页选中待展示的诗歌（跨 Tab 传递，首页消费后置空） */
+    selectedPoem: null
   },
 
   onLaunch() {
