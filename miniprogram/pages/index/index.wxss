@@ -1,8 +1,8 @@
 /* 首页 Tab 样式 — 阅读区（宣纸墨韵风格） */
 
 .page-body {
-  /* 底部预留自定义 tabBar 高度 + 安全区 */
-  padding: 16rpx 40rpx 200rpx;
+  /* 底部预留自定义 tabBar 高度（约113rpx）+ 安全区（约68rpx）+ 余量 */
+  padding: 16rpx 40rpx 240rpx;
 }
 
 /* ══════════ 阅读区（对应 .reader） ══════════ */
@@ -74,15 +74,4 @@
   margin-top: 56rpx;
   padding-top: 40rpx;
   border-top: 2rpx dashed var(--line);
-}
-
-/* ══════════ 页脚（对应 .site-footer） ══════════ */
-
-.site-footer {
-  margin-top: 96rpx;
-  padding-bottom: 40rpx;
-  color: var(--ink-faint);
-  font-size: 27rpx;
-  letter-spacing: 1rpx;
-  text-align: center;
 }

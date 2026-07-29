@@ -1,0 +1,36 @@
+<!-- 关于 Tab：项目介绍 + 数据来源 -->
+<custom-nav lang="{{lang}}" bind:langchange="onLangChange" />
+
+<view class="page-body">
+  <!-- ═══ 项目介绍 ═══ -->
+  <view class="about-card anim-rise">
+    <view class="about-heading">关于</view>
+
+    <view class="brand-row">
+      <view class="seal-lg">诗</view>
+      <view class="brand-info">
+        <text class="brand-name">诗泉</text>
+        <text class="brand-sub">随机 · 搜索</text>
+      </view>
+    </view>
+
+    <view class="about-section">
+      <view class="section-title">项目介绍</view>
+      <view class="section-body">
+        <text class="section-para">诗泉是一个轻量级古诗词演示应用，旨在展示诗泉 API 的两项核心能力：</text>
+        <text class="section-para">· 随机刷诗 —— 每次进入或点击「换一首」，随机呈现一首古诗；</text>
+        <text class="section-para">· 全文搜索 —— 按诗句、标题或作者关键词检索，点击结果即可阅读。</text>
+        <text class="section-para">同时支持简体与繁体中文切换，界面采用宣纸墨韵风格，愿你在墨香纸韵中邂逅一首好诗。</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- ═══ 数据来源 ═══ -->
+  <view class="about-card anim-rise anim-delay-2">
+    <view class="section-title">数据来源</view>
+    <view class="section-body">
+      <text class="section-para">本应用数据来自诗泉 API（poetry.palemoky.com），源自开源项目 chinese-poetry。</text>
+      <text class="section-para">诗泉 API 提供随机诗歌与全文搜索接口，支持简繁两种语言返回。</text>
+    </view>
+  </view>
+</view>

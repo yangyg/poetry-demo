@@ -1,0 +1,106 @@
+/* 关于 Tab 样式 — 宣纸墨韵风格，变量来自 app.wxss */
+
+.page-body {
+  /* 底部预留自定义 tabBar 高度（约113rpx）+ 安全区（约68rpx）+ 余量 */
+  padding: 16rpx 40rpx 240rpx;
+}
+
+.anim-delay-2 {
+  animation-delay: 0.16s;
+}
+
+/* ══════════ 卡片容器 ══════════ */
+
+.about-card {
+  margin-top: 40rpx;
+  padding: 56rpx 48rpx 48rpx;
+  background: var(--card);
+  border: 2rpx solid var(--line);
+  box-shadow: 0 36rpx 80rpx var(--shadow);
+  border-radius: var(--radius);
+}
+
+/* 页面标题 */
+.about-heading {
+  margin-bottom: 40rpx;
+  font-family: var(--font-display);
+  font-size: 51rpx;
+  font-weight: 400;
+  letter-spacing: 13rpx;
+  text-align: center;
+}
+
+/* ══════════ 品牌区（印章 + 名称） ══════════ */
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 27rpx;
+  margin-bottom: 48rpx;
+}
+
+.seal-lg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 110rpx;
+  height: 110rpx;
+  border: 5rpx solid var(--seal);
+  color: var(--seal);
+  font-family: var(--font-display);
+  font-size: 60rpx;
+  line-height: 1;
+  transform: rotate(-6deg);
+  box-shadow: inset 0 0 0 2rpx var(--seal-35);
+  background: var(--seal-bg);
+}
+
+.brand-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 64rpx;
+  font-weight: 400;
+  letter-spacing: 10rpx;
+  line-height: 1.2;
+}
+
+.brand-sub {
+  font-size: 26rpx;
+  color: var(--ink-faint);
+  letter-spacing: 9rpx;
+}
+
+/* ══════════ 章节 ══════════ */
+
+.about-section {
+  border-top: 2rpx dashed var(--line);
+  padding-top: 36rpx;
+}
+
+.section-title {
+  margin-bottom: 20rpx;
+  font-family: var(--font-display);
+  font-size: 38rpx;
+  font-weight: 400;
+  letter-spacing: 8rpx;
+  color: var(--ink);
+}
+
+.section-body {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.section-para {
+  font-size: 29rpx;
+  color: var(--ink-soft);
+  letter-spacing: 2rpx;
+  line-height: 1.8;
+}

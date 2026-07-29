@@ -1,8 +1,8 @@
 /* 搜索 Tab 样式 — 宣纸墨韵风格，变量来自 app.wxss */
 
 .page-body {
-  /* 底部预留自定义 tabBar 高度 + 安全区 */
-  padding: 16rpx 40rpx 200rpx;
+  /* 底部预留自定义 tabBar 高度（约113rpx）+ 安全区（约68rpx）+ 余量 */
+  padding: 16rpx 40rpx 240rpx;
 }
 
 /* ══════════ 搜索区（对应 Web 端 .search） ══════════ */
@@ -99,15 +99,4 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-/* ══════════ 页脚（对应 .site-footer） ══════════ */
-
-.site-footer {
-  margin-top: 96rpx;
-  padding-bottom: 40rpx;
-  color: var(--ink-faint);
-  font-size: 27rpx;
-  letter-spacing: 1rpx;
-  text-align: center;
 }

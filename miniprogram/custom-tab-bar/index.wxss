@@ -1,4 +1,6 @@
-/* 自定义 tabBar — 宣纸墨韵风格 */
+/* 自定义 tabBar — 宣纸墨韵风格
+ * 悬浮固定于视口底部：position: fixed + bottom: 0，
+ * z-index 保证覆盖在页面内容之上，不随内容滚动 */
 .tab-bar {
   position: fixed;
   bottom: 0;
@@ -8,7 +10,8 @@
   display: flex;
   background: var(--paper);
   border-top: 2rpx solid var(--line);
-  /* iPhone 底部安全区 */
+  /* iPhone 底部安全区：constant 兼容旧版 iOS，env 为现代标准 */
+  padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
 

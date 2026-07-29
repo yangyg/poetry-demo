@@ -44,9 +44,4 @@
       </view>
     </view>
   </view>
-
-  <!-- ═══ 页脚 ═══ -->
-  <view class="site-footer">
-    <text>数据来自诗泉 API（poetry.palemoky.com），源自开源项目 chinese-poetry。</text>
-  </view>
 </view>
