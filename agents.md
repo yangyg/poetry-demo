@@ -6,42 +6,60 @@
 
 项目包含两个端：
 
-- **Web 端**：单页应用，首屏随机展示一首古诗，支持「换一首」、关键词搜索、简繁切换
+- **Web 端**：首页阅读、搜索、诗详情、关于四个页面，导航条位于顶部 Header 内，支持「换一首」与简繁切换
 - **微信小程序端**：功能与 Web 端一致，位于 `miniprogram/` 目录，使用微信开发者工具打开项目根目录即可运行
 
 ## 技术栈
 
 | 端 | 技术 |
 |----|------|
-| Web | Vite 7 + 原生 HTML/CSS/JS（ES Module），无框架依赖 |
+| Web | Astro 7 + 原生 .astro 组件 + 原生 TypeScript（无框架依赖），`/api` 开发代理见 `astro.config.mjs` |
 | 小程序 | 微信小程序原生技术栈（WXML / WXSS / JavaScript），`project.config.json` 中 `miniprogramRoot` 指向 `miniprogram/` |
 
 ## 目录结构
 
 ```
-├── src/                        # Web 端源码
-│   ├── main.js                 # UI 逻辑与状态管理（原生 DOM 操作）
-│   ├── api.js                  # API 调用封装（fetch）
-│   └── style.css               # 宣纸墨韵风格样式（CSS 变量在 :root）
+├── src/                        # Web 端源码（Astro）
+│   ├── layouts/Layout.astro    # HTML 骨架 + Google Fonts + 全局样式引入
+│   ├── components/
+│   │   └── SiteHeader.astro    # 顶栏（页面导航 + 简繁切换，单行布局）
+│   ├── pages/
+│   │   ├── index.astro         # Tab 页：阅读区
+│   │   ├── search.astro        # Tab 页：搜索区
+│   │   ├── poem.astro          # 诗详情页（/poem/?id=，按 id 动态取诗）
+│   │   └── about.astro         # Tab 页：关于（项目介绍 + 数据来源）
+│   ├── scripts/                # 各页 <script> 入口逻辑（原生 DOM 操作）
+│   │   ├── reader.ts           # 首页：随机取诗/换一首
+│   │   ├── search.ts           # 搜索页：搜索 + 点击结果跳转详情页
+│   │   ├── poem.ts             # 详情页：按 id 取诗渲染，语言切换后重取
+│   │   └── about.ts            # 关于页：语言偏好持久化
+│   ├── lib/
+│   │   ├── api.ts              # API 调用封装（fetch + TypeScript 类型）
+│   │   ├── poem-view.ts        # 首页阅读区/详情页共享的诗歌渲染辅助
+│   │   └── lang.ts             # 语言偏好（localStorage + 下拉框绑定）
+│   └── styles/global.css       # 宣纸墨韵风格样式（CSS 变量在 :root）
 ├── miniprogram/                # 微信小程序端源码
 │   ├── app.js / app.json / app.wxss   # 全局配置与主题变量
 │   ├── utils/api.js            # 接口层（wx.request 封装）
 │   ├── components/custom-nav/  # 自定义导航栏（印章品牌 + 简繁切换）
-│   └── pages/index/            # 唯一页面：阅读区 + 搜索区
+│   ├── custom-tab-bar/         # 自定义底部 TabBar（首页 / 搜索 / 关于）
+│   └── pages/index/            # Tab 页：阅读区
+│   └── pages/search/           # Tab 页：搜索区
+│   └── pages/about/            # Tab 页：关于（项目介绍 + 数据来源）
 ├── docs/superpowers/
 │   ├── specs/                  # 设计文档（功能范围、接口、错误处理）
 │   └── plans/                  # 实现计划（任务拆解）
-├── index.html                  # Web 端页面骨架
-├── vite.config.js              # 开发服务器 + /api 代理配置
+├── astro.config.mjs            # Astro 配置（vite.server.proxy 转发 /api）
+├── tsconfig.json               # 继承 astro/tsconfigs/strict
 └── project.config.json         # 微信开发者工具项目配置
 ```
 
 ## 开发命令
 
 ```bash
-npm install        # 安装依赖（仅 vite）
-npm run dev        # 启动开发服务器，默认 http://localhost:5173
-npm run build      # 生产构建
+npm install        # 安装依赖（仅 astro）
+npm run dev        # 启动 Astro 开发服务器，默认 http://localhost:4321
+npm run build      # 生产构建（输出到 dist/）
 npm run preview    # 预览构建产物
 ```
 
@@ -49,7 +67,7 @@ npm run preview    # 预览构建产物
 
 ## 接口与代理配置
 
-- **Web 端**：开发时 `/api` 经 Vite 代理转发到 `https://poetry.palemoky.com`（见 `vite.config.js`），避免 CORS
+- **Web 端**：开发时 `/api` 经 Astro 开发服务器（底层 Vite）代理转发到 `https://poetry.palemoky.com`（配置在 `astro.config.mjs` 的 `vite.server.proxy`），避免 CORS
 - **小程序端**：无代理能力，`wx.request` 直接请求 `https://poetry.palemoky.com/api/*`；开发时需在开发者工具中勾选「不校验合法域名」，正式发布需在管理后台添加该域名为 request 合法域名
 
 核心接口：
@@ -63,11 +81,11 @@ npm run preview    # 预览构建产物
 
 ## 编码规范与注意事项
 
-1. **Web 端使用原生 DOM 操作**，不引入任何框架或 UI 库
-2. **视觉风格为宣纸墨韵**：米黄纸感底色、墨色文字、印章红点缀；CSS 变量定义在 `src/style.css` 的 `:root`（Web）和 `app.wxss` 的 `page`（小程序），修改样式时保持一致
+1. **Web 端使用原生 DOM 操作**（逻辑按页面拆分在 `src/scripts/`，由各页 `<script>` 引入），不引入任何框架或 UI 库；跨页状态经 Storage 传递：语言偏好存 `localStorage`，搜索页选中诗经 `sessionStorage`（`src/lib/pending.ts`）传给首页阅读区
+2. **视觉风格为宣纸墨韵**：米黄纸感底色、墨色文字、印章红点缀；CSS 变量定义在 `src/styles/global.css` 的 `:root`（Web）和 `app.wxss` 的 `page`（小程序），修改样式时保持一致
 3. **小程序端使用 `wx.request`** 替代浏览器的 fetch；CSS 不支持 `color-mix()`，已预计算为 rgba 值
 4. **小程序字体**使用系统楷体/宋体回退栈（无法直接加载 Google Fonts）
-5. **简繁切换**通过 `lang` 参数（`zh-Hans` / `zh-Hant`）传递给接口，小程序端语言偏好持久化在 Storage
+5. **简繁切换**通过 `lang` 参数（`zh-Hans` / `zh-Hant`）传递给接口，语言偏好持久化在 Storage（Web 端 localStorage、小程序端 Storage），跨页/跨 Tab 保持一致
 6. **不主动 git commit**，除非用户明确要求
 7. 不做：作者/朝代/体裁复杂筛选、API 调试台、登录/后端/自建数据库
 

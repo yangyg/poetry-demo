@@ -1,0 +1,29 @@
+---
+const tabs = [
+  { href: '/', icon: '诗', text: '首页' },
+  { href: '/search/', icon: '寻', text: '搜索' },
+  { href: '/about/', icon: 'A', text: '关于' },
+]
+const normalize = (p: string) => p.replace(/\/+$/, '') || '/'
+const current = normalize(Astro.url.pathname)
+---
+<header class="site-header">
+  <nav class="site-nav" aria-label="页面导航">
+    {tabs.map((tab) => {
+      const active = normalize(tab.href) === current
+      return (
+        <a class="nav-item" href={tab.href} aria-current={active ? 'page' : undefined}>
+          <span class="nav-icon" aria-hidden="true">{tab.icon}</span>
+          <span class="nav-text">{tab.text}</span>
+        </a>
+      )
+    })}
+  </nav>
+  <label class="lang-switch">
+    <span class="sr-only">语言</span>
+    <select id="lang" aria-label="简繁切换">
+      <option value="zh-Hans">简体</option>
+      <option value="zh-Hant">繁體</option>
+    </select>
+  </label>
+</header>

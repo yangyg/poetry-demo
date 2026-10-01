@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+---
+<Layout title="诗泉 — 诗详情">
+  <div class="paper-grain" aria-hidden="true"></div>
+
+  <SiteHeader />
+
+  <main>
+    <section class="reader" aria-labelledby="poem-title">
+      <div class="reader-inner" id="poem-detail">
+        <p class="status" id="poem-status">正在取诗…</p>
+        <h1 class="poem-title" id="poem-title" hidden></h1>
+        <p class="poem-meta" id="poem-meta" hidden></p>
+        <div class="poem-body" id="poem-body" hidden></div>
+      </div>
+      <div class="reader-actions">
+        <a class="btn-ghost" href="/search/">返回搜索</a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    import '../scripts/poem';
+  </script>
+</Layout>

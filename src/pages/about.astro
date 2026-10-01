@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+---
+<Layout title="诗泉 — 关于">
+  <div class="paper-grain" aria-hidden="true"></div>
+
+  <SiteHeader />
+
+  <main>
+    <section class="about-card fade-in">
+      <h1 class="about-heading">关于</h1>
+      <h2 class="section-title">项目介绍</h2>
+      <p class="section-para">一个轻量级古诗词演示应用，旨在展示诗泉 API 的两项核心能力：</p>
+      <p class="section-para">· 随机刷诗 —— 每次进入或点击「换一首」，随机呈现一首古诗；</p>
+      <p class="section-para">· 全文搜索 —— 按诗句、标题或作者关键词检索，点击结果即可阅读。</p>
+      <p class="section-para">同时支持简体与繁体中文切换，界面采用宣纸墨韵风格，愿你在墨香纸韵中邂逅一首好诗。</p>
+    </section>
+
+    <section class="about-card fade-in">
+      <h2 class="section-title">数据来源</h2>
+      <p class="section-para">
+        本应用数据来自
+        <a href="https://poetry.palemoky.com/" target="_blank" rel="noopener">诗泉 API</a>
+        （poetry.palemoky.com），源自开源项目 chinese-poetry。
+      </p>
+      <p class="section-para">诗泉 API 提供随机诗歌与全文搜索接口，支持简繁两种语言返回。</p>
+    </section>
+  </main>
+
+  <script>
+    import '../scripts/about';
+  </script>
+</Layout>
