@@ -23,7 +23,7 @@ Web 端与小程序端均为三个页面（首页 / 搜索 / 关于）：
 
 Web 端导航条在顶部 Header 内；小程序端为底部 TabBar 切换。
 
-开发时 `/api` 经 Astro 开发服务器（Vite 代理，见 `astro.config.mjs`）转发到 `https://poetry.palemoky.com`，避免 CORS 问题。
+诗泉 API（`https://poetry.palemoky.com`）已开启 CORS，Web 端浏览器直连，无需代理（API 地址见 `src/lib/api.ts`）。
 
 ## 小程序版
 

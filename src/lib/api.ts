@@ -1,8 +1,10 @@
 /**
- * 诗泉 API 客户端（经 Astro dev server 的 Vite 代理）
+ * 诗泉 API 客户端（接口已开启 CORS，开发与生产环境均直连）
  */
 
 export type Lang = 'zh-Hans' | 'zh-Hant'
+
+const API_BASE = 'https://poetry.palemoky.com'
 
 export interface Poem {
   id?: number
@@ -52,7 +54,7 @@ async function errorMessage(res: Response): Promise<string> {
 }
 
 async function request<T>(path: string): Promise<T> {
-  const res = await fetch(path)
+  const res = await fetch(`${API_BASE}${path}`)
   if (!res.ok) {
     throw new Error(await errorMessage(res))
   }

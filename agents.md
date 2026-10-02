@@ -13,7 +13,7 @@
 
 | 端 | 技术 |
 |----|------|
-| Web | Astro 7 + 原生 .astro 组件 + 原生 TypeScript（无框架依赖），`/api` 开发代理见 `astro.config.mjs` |
+| Web | Astro 7 + 原生 .astro 组件 + 原生 TypeScript（无框架依赖），直连诗泉 API（见 `src/lib/api.ts`） |
 | 小程序 | 微信小程序原生技术栈（WXML / WXSS / JavaScript），`project.config.json` 中 `miniprogramRoot` 指向 `miniprogram/` |
 
 ## 目录结构
@@ -49,7 +49,7 @@
 ├── docs/superpowers/
 │   ├── specs/                  # 设计文档（功能范围、接口、错误处理）
 │   └── plans/                  # 实现计划（任务拆解）
-├── astro.config.mjs            # Astro 配置（vite.server.proxy 转发 /api）
+├── astro.config.mjs            # Astro 配置
 ├── tsconfig.json               # 继承 astro/tsconfigs/strict
 └── project.config.json         # 微信开发者工具项目配置
 ```
@@ -65,10 +65,10 @@ npm run preview    # 预览构建产物
 
 小程序端无构建步骤，用微信开发者工具打开项目根目录直接编译运行。
 
-## 接口与代理配置
+## 接口配置
 
-- **Web 端**：开发时 `/api` 经 Astro 开发服务器（底层 Vite）代理转发到 `https://poetry.palemoky.com`（配置在 `astro.config.mjs` 的 `vite.server.proxy`），避免 CORS
-- **小程序端**：无代理能力，`wx.request` 直接请求 `https://poetry.palemoky.com/api/*`；开发时需在开发者工具中勾选「不校验合法域名」，正式发布需在管理后台添加该域名为 request 合法域名
+- **Web 端**：浏览器直连 `https://poetry.palemoky.com`（接口已开启 CORS，`Access-Control-Allow-Origin: *`），API 地址常量在 `src/lib/api.ts` 的 `API_BASE`
+- **小程序端**：`wx.request` 直接请求 `https://poetry.palemoky.com/api/*`；开发时需在开发者工具中勾选「不校验合法域名」，正式发布需在管理后台添加该域名为 request 合法域名
 
 核心接口：
 
