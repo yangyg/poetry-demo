@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title: string;
@@ -13,6 +14,7 @@ const { title, lang = 'zh-Hans' } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#eee5cf" />
     <title>{title}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,8 +22,17 @@ const { title, lang = 'zh-Hans' } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700&display=swap"
       rel="stylesheet"
     />
+    <ClientRouter />
   </head>
   <body>
+    <div class="ink-wash ink-wash-a" aria-hidden="true"></div>
+    <div class="ink-wash ink-wash-b" aria-hidden="true"></div>
+    <div class="paper-grain" aria-hidden="true"></div>
+    <span class="watermark" aria-hidden="true">詩</span>
     <slot />
+    <footer class="site-footer">
+      <span>诗泉 · 随机一叶，寻句千年</span>
+      <a href="https://poetry.palemoky.com/" target="_blank" rel="noopener">数据来自诗泉 API</a>
+    </footer>
   </body>
 </html>

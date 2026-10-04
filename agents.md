@@ -81,11 +81,12 @@ npm run preview    # 预览构建产物
 
 ## 编码规范与注意事项
 
-1. **Web 端使用原生 DOM 操作**（逻辑按页面拆分在 `src/scripts/`，由各页 `<script>` 引入），不引入任何框架或 UI 库；跨页状态经 Storage 传递：语言偏好存 `localStorage`，搜索页选中诗经 `sessionStorage`（`src/lib/pending.ts`）传给首页阅读区
-2. **视觉风格为宣纸墨韵**：米黄纸感底色、墨色文字、印章红点缀；CSS 变量定义在 `src/styles/global.css` 的 `:root`（Web）和 `app.wxss` 的 `page`（小程序），修改样式时保持一致
-3. **小程序端使用 `wx.request`** 替代浏览器的 fetch；CSS 不支持 `color-mix()`，已预计算为 rgba 值
+1. **Web 端使用原生 DOM 操作**（逻辑按页面拆分在 `src/scripts/`，由各页 `<script>` 引入），不引入任何框架或 UI 库；语言偏好存 `localStorage`
+2. **Web 端启用 Astro ClientRouter（View Transitions）**：页面脚本模块只执行一次，DOM 查询与事件绑定必须放在 `document.addEventListener('astro:page-load', ...)` 内（见 `src/scripts/*`），否则转场后页面失绑
+3. **视觉风格为「墨韵手卷」**：米黄纸感底色、墨色文字、印章红点缀、逐行落墨/钤印动效；诗文默认横排（现代阅读习惯），竖排手卷为可切换版式（`.layout-switch`，偏好存 localStorage `poetry-layout`）；CSS 变量定义在 `src/styles/global.css` 的 `:root`（Web）和 `app.wxss` 的 `page`（小程序），修改样式时保持一致；动效只用 transform/opacity，并尊重 `prefers-reduced-motion`
+4. **小程序端使用 `wx.request`** 替代浏览器的 fetch；CSS 不支持 `color-mix()`，已预计算为 rgba 值
 4. **小程序字体**使用系统楷体/宋体回退栈（无法直接加载 Google Fonts）
-5. **简繁切换**通过 `lang` 参数（`zh-Hans` / `zh-Hant`）传递给接口，语言偏好持久化在 Storage（Web 端 localStorage、小程序端 Storage），跨页/跨 Tab 保持一致
+5. **简繁切换**通过 `lang` 参数（`zh-Hans` / `zh-Hant`）传递给接口，语言偏好持久化在 Storage（Web 端 localStorage、小程序端 Storage），跨页保持一致；注意接口的搜索语料按语言区分，简体查询词在 zh-Hant 下可能无结果
 6. **不主动 git commit**，除非用户明确要求
 7. 不做：作者/朝代/体裁复杂筛选、API 调试台、登录/后端/自建数据库
 

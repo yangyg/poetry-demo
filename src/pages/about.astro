@@ -3,12 +3,14 @@ import Layout from '../layouts/Layout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 ---
 <Layout title="诗泉 — 关于">
-  <div class="paper-grain" aria-hidden="true"></div>
-
   <SiteHeader />
 
   <main>
-    <section class="about-card fade-in">
+    <section class="about-card">
+      <p class="eyebrow">
+        <span class="eyebrow-dot" aria-hidden="true"></span>
+        关于本站
+      </p>
       <h1 class="about-heading">关于</h1>
       <h2 class="section-title">项目介绍</h2>
       <p class="section-para">一个轻量级古诗词演示应用，旨在展示诗泉 API 的两项核心能力：</p>
@@ -17,7 +19,7 @@ import SiteHeader from '../components/SiteHeader.astro';
       <p class="section-para">同时支持简体与繁体中文切换，界面采用宣纸墨韵风格，愿你在墨香纸韵中邂逅一首好诗。</p>
     </section>
 
-    <section class="about-card fade-in">
+    <section class="about-card">
       <h2 class="section-title">数据来源</h2>
       <p class="section-para">
         本应用数据来自
